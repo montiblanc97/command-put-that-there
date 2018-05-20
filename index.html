@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>command-put-that-there</title>
+    <link rel="stylesheet" href="view.css">
+
+    <!-- Constructible EventTarget polyfill — Only Chrome 64+ supports constructible EventTarget objects natively -->
+    <script src="https://unpkg.com/event-target@latest/min.js"></script>
+
+    <!-- JQuery -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+
+    <!-- Underscore/Backbone -->
+    <script type="text/javascript" src="lib/underscore.min.js"></script>
+
+    <!-- Leap -->
+    <script type="text/javascript" src="lib/leap.min.js"></script>
+    <script type="text/javascript" src="lib/leap-plugins.min.js"></script>
+
+    <script src="action.js"></script>
+    <script src="piece.js"></script>
+    <script src="piece_leader.js"></script>
+    <script src="piece_unit.js"></script>
+    <script src="piece_place.js"></script>
+
+    <script src="board.js"></script>
+    <script src="brief.js"></script>
+    <script src="controller.js"></script>
+
+    <!-- Speech -->
+    <script src="transcript_tweak.js"></script>
+    <script src="processing_speech.js"></script>
+    <script src="setup_speech.js"></script>
+
+    <script src="processing_leap.js"></script>
+</head>
+<body>
+
+<header>
+    <div class="information-pane">
+        <div class="operation-title">Operation Unknown</div>
+        <div class="time">----</div>
+        <div class="phase">Phase 0</div>
+        <div class="speech-label">Speech:</div>
+        <div class="speech"></div>
+    </div>
+</header>
+
+<main>
+    <div class="map">
+        <div class="pieces"></div>
+        <div class="actions"></div>
+    </div>
+    <div class="cursor"></div>
+</main>
+
+<aside>
+    <div class="guide">
+        <div class="instructions">
+            <h1>INSTRUCTIONS</h1>
+            <p>
+                Point on the screen with the Leap motion for <span class="leap">red commands</span><br><br>
+                *details* between asterisks can be replaced<br><br>
+
+                <span class="command-name">View Script:</span><br>Show the script<br>
+                <span class="command-name">View Instructions:</span><br>Show the instructions<br>
+            </p>
+            <h3>Mission Information</h3>
+            <p>
+                <span class="command-name">Set Mission Name:</span><br>This is Operation *Paul Revere*<br>
+                <span class="command-name">Set Time:</span><br>Time is now *0400*<br>
+                <span class="command-name">Set Phase:</span><br>This is Phase *1*
+            </p>
+            <h3>Add Units</h3>
+            <p>
+                <span class="command-name">Friendly Unit:</span><br>*1st Platoon* is <span class="leap">here</span><br>
+                <span class="command-name">Enemy Unit:</span><br>Enemy *Squad* is <span class="leap">here</span><br>
+                <span class="command-name">Supported Unit Sizes:</span>
+                <br>Squad, Platoon, Company, Battalion, Regiment, Brigade, Division
+            </p>
+            <h3>Add Places</h3>
+            <p>
+                <span class="command-name">ORP:</span><br>The Objective Rally Point is <span class="leap">here</span><br>
+                <span class="command-name">Objective:</span><br>Objective *Python* is <span class="leap">here</span>
+            </p>
+            <h3>Move Units</h3>
+            <p>
+                <span class="command-name">Simple:</span><br>*1st Platoon* will move <span class="leap">here</span><br>
+                <span class="command-name">Detailed:</span><br>*2nd Squad* will move 30 degrees for 500 meters
+                    <span class="leap">here</span>
+            </p>
+            <h3>Tactics</h3>
+            <p>
+                <span class="command-name">Attack-by-Fire:</span><br>*1st Squad* will attack the *Enemy Platoon*<br>
+                <span class="command-name">Support-by-Fire:</span><br>*2nd Platoon* will lay suppressing fire on the *Enemy*<br>
+                <span class="command-name">Assault:</span><br>*2nd Squad* will assault through to
+                    <span class="leap">here</span><br>
+                <span class="command-name">Removal:</span><br>The *Enemy Platoon* will be destroyed
+            </p>
+            <h3>This and That</h3>
+            <p>
+                <span class="command-name">Single</span><br><span class="leap">This *unit*</span> will attack the enemy
+                <span class="command-name">Multi</span><br><span class="leap">This *platoon*</span> will attack
+                    <span class="leap">that *squad*</span>
+            </p>
+            <h3>Set Time/Phase with Action</h3>
+            <p>
+                <span class="command-name">Time</span><br>At *0830*, *1st Squad* will attack the *Enemy Platoon*<br>
+                <span class="command-name">Attack-by-Fire:</span><br>In Phase *3*, *1st Squad* will attack the *Enemy Platoon*
+            </p>
+            <h3>Presentation Mode</h3>
+            <p>
+                <span class="command-name">From current location:</span><br>Play from here<br>
+                <span class="command-name">From beginning:</span><br>Play from beginning<br>
+                <span class="command-name">From a phase:</span><br>Play from Phase *1*
+            </p>
+        </div>
+
+        <div class="script">
+            <h1>SCRIPT</h1>
+            <p>Point on the screen with the Leap motion for <span class="leap">red commands</span><br><br></p>
+            <h3>Setup</h3>
+            <p>- This is Operation Big Dog<br>
+                - 1st Squad is <span class="leap">here</span><br>
+                - Enemy Squad is <span class="leap">here</span><br>
+                - 2nd Squad is <span class="leap">here</span><br>
+                - Objective Beaver is <span class="leap">here</span><br>
+                - Time is now 0800<br>
+                - This is Phase 1<br>
+            </p>
+            <h3>Phase 1</h3>
+            <p>- The Objective Rally Point is <span class="leap">here</span><br>
+                - At 0830, 1st Squad will move south for 200 meters to the Objective Rally Point<br>
+                - After 30 minutes, 1st Squad will move 90 degrees for 250 meters to <span class="leap">here</span><br>
+            </p>
+            <h3>Phase 2</h3>
+            <p>- In Phase 2 at 0930, 2nd Squad will lay suppressing fire on the enemy<br>
+                - Then this squad (1st Squad) will attack that squad (enemy squad)<br>
+                - 1st Squad will assault through to <span class="leap">here</span><br>
+            </p>
+            <h3>Phase 3</h3>
+            <p>
+                - Afterwards in Phase 3 at 1030, this squad (2nd squad) will move away to <span class="leap">here</span><br>
+                - At the same time, 1st squad will then carry on to secure Objective Beaver<br>
+            </p>
+            <h3>Run-through</h3>
+            <p>
+                - Play from Phase 1
+            </p>
+        </div>
+
+        <button class="script-button" onclick="guide_mode(true)">Click or Say<br>"I'm not in the Army (yet)!"</button>
+        <button class="instructions-button" onclick="guide_mode(false)">Click or Say<br>"Instructions"</button>
+    </div>
+</aside>
+
+</body>
+</html>

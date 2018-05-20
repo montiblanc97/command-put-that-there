@@ -1,0 +1,15 @@
+place NAME platoon here
+
+place OTHER platoon here
+
+move NAME platoon here
+
+NAME platoon attacks OTHER platoon
+
+we will attack the enemy platoon
+
+
+
+
+
+
