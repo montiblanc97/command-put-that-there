@@ -1,4 +1,6 @@
 Command-Put-That-There is a virtual visual aid for military leaders during mission briefings.
+![alt text](https://raw.githubusercontent.com/montiblanc97/command-put-that-there/master/demo.png)
+
 https://www.youtube.com/watch?v=0RFS4MesKbw
 
 Hardware: Leap Motion, Microphone
